@@ -1,0 +1,34 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    History
+{% endblock %}
+
+{% block main %}
+    <table class="table">
+        <thead>
+            <tr>
+                <th class="text-start">Symbol</th>
+                <th class="text-end">Shares</th>
+                <th class="text-end">Price</th>
+                <th class="text-end">Type</th>
+                <th class="text-end">Transacted</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for tran in transactions %}
+                <tr>
+                    <td class="text-start">{{ tran.symbol }}</td>
+                    <td class="text-end">{{ tran.shares }}</td>
+                    <td class="text-end">{{ tran.price | usd }}</td>
+                    {% if tran.transaction_type == "sell" %}
+                        <td class="text-end" style="color: red">{{ tran.transaction_type }}</td>
+                    {% else %}
+                        <td class="text-end" style="color: green">{{ tran.transaction_type }}</td>
+                    {% endif %}
+                    <td class="text-end">{{ tran.time }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}
